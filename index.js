@@ -5,13 +5,21 @@ var RandomDice = require('./random-dice')
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
-    type RandomDice {
-        numSides: Int!
-        rollOne: Int!
-        role(numRolls: Int!): [Int]
+    input MessageInput {
+        content: String
+        author: String
+    }
+    type Message {
+        id: ID!
+        content: String
+        author: String
     }
     type Query {
-        getDice(numSides: Int!): RandomDice
+        getMessage(id: ID!): Message
+    }
+    type Mutation {
+        createMessage(input: MessageInput): Message
+        updateMessage(id: ID!, input: MessageInput): Message
     }
 `)
 
